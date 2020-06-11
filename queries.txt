@@ -1,0 +1,110 @@
+### Specs
+
+1. A user can see the list of forums he has joined.  
+
+query {
+  showAlreadyJoinedForums(userId: "u3") {
+    id
+    name
+    forums {
+      id
+      name
+    }
+  }
+}
+
+2. A user can create a new forum (and join it automatically) 
+
+mutation {
+  createForum(forumData:{
+    id:"f4"
+    name:"Democrats"
+    admin:"u3"
+  }) {
+    id
+    name
+    admin {
+      name
+    }
+    users {
+      name
+    }
+  }
+}
+
+3. A user can see the list of available forum.
+
+query{
+  availableForums(user: "u3") {
+    id
+    name
+	}
+}
+
+4. He can also join a forum if he knows the forum id 
+
+mutation {
+  joinForum(forumId: "f3", userId:"u1") {
+    id
+    name
+    admin {
+      name
+    }
+    users {
+      id
+      name
+    }
+  }
+}
+
+5. see the list of previous messages, ordered by most recent. To be displayed in our client, a message should at least have a text, a sending time and name/picture of the sender
+
+query {
+  showAllMessages(forum:"f2"){
+    id
+    text
+    author {
+      name
+      picture
+    }
+    forum {
+      id
+      name
+    }
+    createdAt
+  }
+}
+
+6. see the name and picture of the members of the forum
+
+query {
+  seeAllMembers(forum:"f3"){
+    id
+    name
+    picture
+  }
+}
+
+7. post a message in the forum
+
+mutation {
+  createMessage(msgData:{
+    id:"m7"
+    text:"this is my msg"
+    author:"u1"
+    forum:"f1"
+    createdAt: 1591704000000
+  }) {
+    id
+    text
+    author {
+      id
+      name
+    }
+    forum {
+      id
+      name
+    }
+    createdAt
+  }
+}
